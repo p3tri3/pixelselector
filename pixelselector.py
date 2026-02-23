@@ -127,8 +127,14 @@ class PixelSelectorApp:
         """Append the clicked canvas coordinate to ``self.pixels`` and draw a marker."""
         if self.image is None:
             return
-        x = self.canvas.canvasx(event.x)
-        y = self.canvas.canvasy(event.y)
+        # Tkinter stub coverage varies across Python/mypy/typeshed versions.
+        # Some environments type these methods; others expose them as untyped.
+        x = float(
+            self.canvas.canvasx(event.x)  # type: ignore[no-untyped-call,unused-ignore]
+        )
+        y = float(
+            self.canvas.canvasy(event.y)  # type: ignore[no-untyped-call,unused-ignore]
+        )
         self.pixels.append((x, y))
         self.listbox.insert(tk.END, f"{len(self.pixels)}: ({x}, {y})")
         self.draw_marker(x, y, len(self.pixels))
