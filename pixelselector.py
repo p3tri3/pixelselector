@@ -88,7 +88,7 @@ class PixelSelectorApp:
         if image_path:
             self.load_image(image_path)
 
-    def scroll_vertical(self, event: tk.Event[tk.Canvas]) -> None:
+    def scroll_vertical(self, event: tk.Event) -> None:
         """Scroll the canvas vertically on mouse-wheel or Linux Button-4/5 events."""
         if event.num == 4:
             self.canvas.yview_scroll(-1, "units")
@@ -98,7 +98,7 @@ class PixelSelectorApp:
             direction = -1 if event.delta > 0 else 1
             self.canvas.yview_scroll(direction, "units")
 
-    def scroll_horizontal(self, event: tk.Event[tk.Canvas]) -> None:
+    def scroll_horizontal(self, event: tk.Event) -> None:
         """Scroll the canvas horizontally on Shift-Ctrl-mouse-wheel events."""
         direction = -1 if event.delta > 0 else 1
         self.canvas.xview_scroll(direction, "units")
@@ -123,7 +123,7 @@ class PixelSelectorApp:
             self.markers.clear()
             self.image_filename = os.path.splitext(os.path.basename(file_path))[0]
 
-    def record_pixel(self, event: tk.Event[tk.Canvas]) -> None:
+    def record_pixel(self, event: tk.Event) -> None:
         """Append the clicked canvas coordinate to ``self.pixels`` and draw a marker."""
         if self.image is None:
             return
@@ -164,7 +164,7 @@ class PixelSelectorApp:
         self.pixels.pop(selected_idx[0])
         self.update_markers()
 
-    def drag_reorder(self, event: tk.Event[tk.Listbox]) -> None:
+    def drag_reorder(self, event: tk.Event) -> None:
         """Reorder pixels by dragging a Listbox entry to a new position."""
         selected = self.listbox.curselection()  # type: ignore[no-untyped-call]
         if not selected:
