@@ -195,7 +195,14 @@ class PixelSelectorApp:
         draw = ImageDraw.Draw(annotated_image)
         font = ImageFont.load_default(size=16)
         for i, (x, y) in enumerate(self.pixels):
-            draw.text((x, y), str(i + 1), fill="red", font=font)
+            text = str(i + 1)
+            bbox = draw.textbbox((0, 0), text, font=font)
+            draw.text(
+                (x - (bbox[0] + bbox[2]) / 2, y - (bbox[1] + bbox[3]) / 2),
+                text,
+                fill="red",
+                font=font,
+            )
         annotated_image.save(image_filename)
         messagebox.showinfo(
             "Success", f"Annotated image saved successfully as {image_filename}"
